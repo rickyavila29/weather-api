@@ -1,4 +1,4 @@
-// Global variables
+// Define variables in the global scope
 var searchHistory = [];
 var weatherApiRootUrl = 'https://api.openweathermap.org';
 var weatherApiKey = 'd91f911bcf2c0f925fb6535547a5ddc9';
@@ -10,31 +10,32 @@ var todayContainer = document.querySelector('#today');
 var forecastContainer = document.querySelector('#forecast');
 var searchHistoryContainer = document.querySelector('#history');
 
-// Add timezone plugins to day.js
+// Timezone plugins
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
 
-// Function to display the search history list.
+// Render search histroy to function
 function renderSearchHistory() {
   searchHistoryContainer.innerHTML = '';
 
-  // Start at end of history array and count down to show the most recent at the top.
+  // Show most recent searches by starting at end of array.
   for (var i = searchHistory.length - 1; i >= 0; i--) {
     var btn = document.createElement('button');
     btn.setAttribute('type', 'button');
     btn.setAttribute('aria-controls', 'today forecast');
     btn.classList.add('history-btn', 'btn-history');
 
-    // `data-search` allows access to city name when click handler is invoked
+    // Allow data-search to append to the btn
+    // Gain access to cities through data search
     btn.setAttribute('data-search', searchHistory[i]);
     btn.textContent = searchHistory[i];
     searchHistoryContainer.append(btn);
   }
 }
 
-// Function to update history in local storage then updates displayed history.
+// Update history to the local storage
 function appendToHistory(search) {
-  // If there is no search term return the function
+  // Return function if no search
   if (searchHistory.indexOf(search) !== -1) {
     return;
   }
@@ -44,7 +45,7 @@ function appendToHistory(search) {
   renderSearchHistory();
 }
 
-// Function to get search history from local storage
+// Get search history from local storage using JSON to parse information
 function initSearchHistory() {
   var storedHistory = localStorage.getItem('search-history');
   if (storedHistory) {
@@ -189,18 +190,19 @@ function renderItems(city, data) {
   renderForecast(data.daily, data.timezone);
 }
 
-// Fetches weather data for given location from the Weather Geolocation
-// endpoint; then, calls functions to display current and forecast weather data.
+
 function fetchWeather(location) {
   var { lat } = location;
   var { lon } = location;
   var city = location.name;
   var apiUrl = `${weatherApiRootUrl}/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
 
+  // Fetches weather data for given location
   fetch(apiUrl)
     .then(function (res) {
       return res.json();
     })
+    // endpoint; then, calls functions to display current and forecast weather data.
     .then(function (data) {
       renderItems(city, data);
     })
@@ -230,7 +232,7 @@ function fetchCoords(search) {
 }
 
 function handleSearchFormSubmit(e) {
-  // Don't continue if there is nothing in the search form
+  //Wont proceed if there is empty string
   if (!searchInput.value) {
     return;
   }

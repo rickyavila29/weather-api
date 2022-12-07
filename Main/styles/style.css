@@ -1757,7 +1757,7 @@ label form [type='radio'] {
   /* text-align: inherit; */
   margin: 0.5rem;
   width: 100%;
-  background-color: #5098e6;
+  background-color: #051bc0;
   color: #d9e9e8;
 }
 
@@ -1783,8 +1783,8 @@ label form [type='radio'] {
 }
 
 .weather-header {
-  background: #20084a;
-  background: -webkit-linear-gradient(right, #20084a, #3463bc);
-  background: -moz-linear-gradient(right, #20084a, #3463bc);
-  background: linear-gradient(to left, #20084a, #3463bc);
+  background: #051bc0;
+  background: -webkit-linear-gradient(right, #051bc0, #3463bc);
+  background: -moz-linear-gradient(right, #051bc0, #3463bc);
+  background: linear-gradient(to left, #051bc0, #3463bc);
 }
