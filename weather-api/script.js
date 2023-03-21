@@ -1,4 +1,4 @@
-function initPage() {
+function queuePage() {
     var inputEl = document.getElementById("city-input");
     var searchEl = document.getElementById("search-button");
     var clearEl = document.getElementById("clear-history");
@@ -12,7 +12,6 @@ function initPage() {
     let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
     console.log(searchHistory);
     var APIKey = "e0466e8ff3c9b519f116bacd3c6b0d78";
-    var cityName;
 
     function getWeather(cityName) {
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
@@ -28,7 +27,7 @@ function initPage() {
             let weatherPic = response.data.weather[0].icon;
             currentPicEl.setAttribute("src","https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
             currentPicEl.setAttribute("alt",response.data.weather[0].description);
-            currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
+            currentTempEl.innerHTML = "Temperature: " + generate(response.data.main.temp) + " &#176F";
             currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
             currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
         let lat = response.data.coord.lat;
@@ -64,7 +63,7 @@ function initPage() {
                 forecastWeatherEl.setAttribute("alt",response.data.list[forecastIndex].weather[0].description);
                 forecastEls[i].append(forecastWeatherEl);
                 var forecastTempEl = document.createElement("p");
-                forecastTempEl.innerHTML = "Temp: " + k2f(response.data.list[forecastIndex].main.temp) + " &#176F";
+                forecastTempEl.innerHTML = "Temp: " + generate(response.data.list[forecastIndex].main.temp) + " &#176F";
                 forecastEls[i].append(forecastTempEl);
                 var forecastHumidityEl = document.createElement("p");
                 forecastHumidityEl.innerHTML = "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
@@ -87,8 +86,8 @@ function initPage() {
         renderSearchHistory();
     })
 
-    function k2f(K) {
-        return Math.floor((K - 273.15) *1.8 +32);
+    function generate(gen) {
+        return Math.floor(( gen- 273.15) *1.8 +32);
     }
 
     function renderSearchHistory() {
@@ -111,4 +110,4 @@ function initPage() {
         getWeather(searchHistory[searchHistory.length - 1]);
     }
 }
-initPage();
+queuePage();
