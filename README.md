@@ -1,7 +1,7 @@
 # Weather Dashboard
 To use the following application navigate to the pages link located in the "demo" section.
 
-# User Storu
+# User Story
 The purpose of this application is to be able to see the weather outlook for a given location at the current moment or for future conditions. The client called for as well for the search history to be saved as to navigate their searches with ease and allow them to expedite their planning. This application will utilize In order for this application to be successful the following requirements are :
 
 ```
